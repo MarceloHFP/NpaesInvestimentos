@@ -19,7 +19,7 @@ export default function LateralSectionLayout({ children }: { children: React.Rea
                     <h1 className={`overflow-hidden whitespace-nowrap transition-all text-xl ${isExpanded ? 'w-auto ml-8 opacity-100' : 'w-0 ml-0 opacity-0'}`}>
                         Npaes Investimentos
                     </h1>
-                    <button onClick={() => setIsExpanded(!isExpanded)} className="p-2 ml-4 rounded-full hover:bg-gray-700 mr-4">
+                    <button onClick={() => setIsExpanded(!isExpanded)} className="p-2 ml-4 rounded-full hover:bg-gray-700 mr-4 cursor-pointer">
                         <ChevronLeft className={`transition-transform duration-300 ${!isExpanded && 'rotate-180'}`} />
                     </button>
                 </div>
@@ -55,7 +55,7 @@ export default function LateralSectionLayout({ children }: { children: React.Rea
                     </a>
                 </div>
                 <div className="flex w-full mt-auto mb-4 justify-center">
-                    <a className="flex gap-1 items-center hover:text-gray-400 cursor-pointer">
+                    <a href="/conta" className="flex gap-1 items-center hover:text-gray-400 cursor-pointer">
                         <CircleUserRound size={30} className="flex-shrink-0"/>
                         <h2 className={`whitespace-nowrap transition-all duration-200 ${isExpanded ? 'opacity-100 scale-100' : 'opacity-0 scale-0 w-0'}`}>Conta</h2>
                     </a>
