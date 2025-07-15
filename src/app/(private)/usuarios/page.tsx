@@ -44,7 +44,7 @@ export default function Usuarios() {
                     </button>
                 </div>
 
-                <div className="h-auto">
+                <div className="w-auto h-auto mr-4">
                     <FilterComponent isFilterModalOpen={isFilterModalOpen}/>
                 </div>
                 
@@ -54,7 +54,7 @@ export default function Usuarios() {
                     key={user.id}
                         // Ao clicar, atualiza o estado com o usuário selecionado
                     onClick={() => setSelectedUser(user)}
-                    className={`flex bg-slate-800 h-28 flex-shrink-0 items-center gap-3 rounded-2xl p-4 transition-all duration-200 border-2 ${selectedUser && selectedUser.id === user.id ? 'border-sky-500' : 'border-transparent hover:border-slate-700'} hover:bg-slate-700 cursor-pointer`}
+                    className={`flex bg-slate-800 h-28 mr-4 flex-shrink-0 items-center gap-3 rounded-2xl p-4 transition-all duration-200 border-2 ${selectedUser && selectedUser.id === user.id ? 'border-sky-500' : 'border-transparent hover:border-slate-700'} hover:bg-slate-700 cursor-pointer`}
                     >
                         <div className="bg-slate-500 rounded-2xl w-20 h-20 ml-2"></div>
                         <div className="flex-1">

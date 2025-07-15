@@ -57,21 +57,21 @@ const FilterComponent = ({isFilterModalOpen}) => {
 
             <div className="flex gap-2 mx-5">
                 <button 
-                    className={`px-4 py-2 text-sm rounded-md transition-colors ${filterType === 'role' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
+                    className={`px-8 py-2 cursor-pointer text-sm rounded-md transition-colors ${filterType === 'role' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
                     onClick={() => ontypeChange('role')}
                 >
                     Cargo
                 </button>
 
                 <button 
-                    className={`px-4 py-2 text-sm rounded-md transition-colors ${filterType === 'name' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
+                    className={`px-8 py-2 cursor-pointer text-sm rounded-md transition-colors ${filterType === 'name' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
                     onClick={() => ontypeChange('name')}
                 >
                     Nome
                 </button>
 
                 <button 
-                    className={`px-4 py-2 text-sm rounded-md transition-colors ${filterType === 'email' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
+                    className={`px-8 py-2 cursor-pointer text-sm rounded-md transition-colors ${filterType === 'email' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
                     onClick={() => ontypeChange('email')}
                 >
                     Email
