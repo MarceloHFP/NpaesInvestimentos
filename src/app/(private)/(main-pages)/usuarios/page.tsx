@@ -1,11 +1,23 @@
 "use client"
 
+import React, { useState } from "react";
+// Componentes e Ícones
 import FilterComponent from "@/app/components/userComponents/FilterComponent";
-// Importe o ícone 'X' para o botão de fechar
-import { CircleUserRound, FilterX, FolderCog, FunnelPlus, FunnelX, MessageSquare, Plus, Settings, SlidersHorizontal, User, Users, X } from "lucide-react";
-import { useState } from "react";
+import { CircleUserRound, FunnelPlus, FunnelX, MessageSquare, Plus, Settings, X } from "lucide-react";
 
-const mockUsers = [
+// 1. DEFINIÇÃO DA INTERFACE PARA O USUÁRIO
+// Define a estrutura de um objeto de usuário para garantir a consistência dos dados.
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  role: string;
+  description: string;
+}
+
+// 2. TIPAGEM DO ARRAY DE USUÁRIOS
+// Aplica a interface 'User' ao array para garantir que todos os objetos sigam a mesma estrutura.
+const mockUsers: User[] = [
     { id: 1, name: 'Ana Silva', email: 'ana.silva@example.com', role: 'Admin', description: 'Líder de equipe com 5 anos de experiência em gerenciamento de projetos ágeis.' },
     { id: 2, name: 'Bruno Costa', email: 'bruno.costa@example.com', role: 'Developer', description: 'Desenvolvedor Full-Stack especializado em React e Node.js.' },
     { id: 3, name: 'Carla Dias', email: 'carla.dias@example.com', role: 'Developer', description: 'Focada em desenvolvimento front-end e apaixonada por UI/UX.' },
@@ -13,13 +25,14 @@ const mockUsers = [
     { id: 5, name: 'Eduarda Farias', email: 'eduarda.farias@example.com', role: 'Product Manager', description: 'Gerente de Produto com background em análise de negócios e estratégia de mercado.' },
 ];
 
+// 3. CONVERSÃO DO COMPONENTE PARA REACT FUNCTIONAL COMPONENT (React.FC)
+const Usuarios = () => {
 
-export default function Usuarios() {
-
-    const [selectedUser, setSelectedUser] = useState(null);
-    // 1. NOVO ESTADO PARA CONTROLAR O MODAL
-    const [isUserModalOpen, setIsUserModalOpen] = useState(false);
-    const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+    // 4. TIPAGEM DOS ESTADOS (useState)
+    // O estado 'selectedUser' pode ser um objeto 'User' ou 'null'.
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
+    const [isUserModalOpen, setIsUserModalOpen] = useState<boolean>(false);
+    const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
 
     return (
         <div className="w-full h-screen flex p-6 gap-6 bg-slate-900 text-white">
@@ -32,11 +45,10 @@ export default function Usuarios() {
 
                     <button 
                         onClick={() => setIsFilterModalOpen(!isFilterModalOpen)}
-                        className={`p-4 rounded-sm bg-gray-500 hover:bg-gray-600 cursor-pointer transition-colors ${isFilterModalOpen ? 'bg-red-800 hover:bg-red-900' : 'bg-gray-500'}`}>
+                        className={`p-4 rounded-sm transition-colors ${isFilterModalOpen ? 'bg-red-800 hover:bg-red-900' : 'bg-gray-500 hover:bg-gray-600'}`}>
                         {isFilterModalOpen ? (<FunnelX size={24}/>) : (<FunnelPlus size={24}/>)}
                     </button>
 
-                    {/* 2. ADICIONADO ONCLICK PARA ABRIR O MODAL */}
                     <button
                         onClick={() => setIsUserModalOpen(true)}
                         className="p-4 rounded-sm bg-blue-400 mr-5 hover:bg-blue-500 cursor-pointer transition-colors">
@@ -44,17 +56,16 @@ export default function Usuarios() {
                     </button>
                 </div>
 
-                <div className="w-auto h-auto mr-4">
+                <div className={`w-auto h-auto ${isFilterModalOpen ? 'mr-4' : ''}`}>
                     <FilterComponent isFilterModalOpen={isFilterModalOpen}/>
                 </div>
                 
-
+                {/* O método 'map' agora itera sobre um array tipado, o que melhora a autocompletação e a segurança */}
                 {mockUsers.map((user) => (
                     <div
-                    key={user.id}
-                        // Ao clicar, atualiza o estado com o usuário selecionado
-                    onClick={() => setSelectedUser(user)}
-                    className={`flex bg-slate-800 h-28 mr-4 flex-shrink-0 items-center gap-3 rounded-2xl p-4 transition-all duration-200 border-2 ${selectedUser && selectedUser.id === user.id ? 'border-sky-500' : 'border-transparent hover:border-slate-700'} hover:bg-slate-700 cursor-pointer`}
+                        key={user.id}
+                        onClick={() => setSelectedUser(user)}
+                        className={`flex bg-slate-800 h-28 flex-shrink-0 items-center gap-3 rounded-2xl p-4 transition-all duration-200 border-2 ${isFilterModalOpen ? 'mr-4' : ''} ${selectedUser?.id === user.id ? 'border-sky-500' : 'border-transparent hover:border-slate-700'} hover:bg-slate-700 cursor-pointer`}
                     >
                         <div className="bg-slate-500 rounded-2xl w-20 h-20 ml-2"></div>
                         <div className="flex-1">
@@ -68,6 +79,7 @@ export default function Usuarios() {
                 ))}
             </div>
 
+            {/* A verificação 'selectedUser' garante que o objeto não é nulo antes de acessar suas propriedades */}
             {selectedUser && (
                 <div className="h-full flex flex-col bg-slate-800 min-w-50 max-w-90 rounded-2xl relative transition-all duration-200">
                     <button
@@ -106,11 +118,10 @@ export default function Usuarios() {
                 </div>
             )}
 
-            {/* 3. ESTRUTURA DO MODAL DE ADICIONAR USUÁRIO */}
+            {/* Modal para adicionar novo usuário */}
             {isUserModalOpen && (
                 <div className="fixed inset-0 bg-black/70 flex items-center justify-center z-50">
                     <div className="bg-slate-800 rounded-lg shadow-xl p-8 w-full max-w-md relative text-white">
-                        {/* Botão para fechar o modal */}
                         <button
                             onClick={() => setIsUserModalOpen(false)}
                             className="absolute top-4 right-4 p-2 rounded-full text-slate-400 hover:bg-slate-700 transition-colors cursor-pointer"
@@ -120,7 +131,6 @@ export default function Usuarios() {
 
                         <h2 className="text-2xl font-bold mb-6">Adicionar Novo Usuário</h2>
 
-                        {/* Formulário de exemplo */}
                         <form>
                             <div className="mb-4">
                                 <label htmlFor="name" className="block text-sm font-medium text-slate-300 mb-2">Nome</label>
@@ -135,7 +145,6 @@ export default function Usuarios() {
                                 <input type="text" id="role" placeholder="Ex: Developer" className="w-full bg-slate-700 border border-slate-600 rounded-md p-2 focus:ring-2 focus:ring-sky-500 focus:border-sky-500 outline-none" />
                             </div>
 
-                            {/* Botões de ação do formulário */}
                             <div className="flex justify-end gap-4">
                                 <button
                                     type="button"
@@ -157,4 +166,6 @@ export default function Usuarios() {
             )}
         </div>
     )
-}                                              
+}
+
+export default Usuarios;

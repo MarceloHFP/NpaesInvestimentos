@@ -1,12 +1,22 @@
 import { useState } from "react";
 
-const FilterComponent = ({isFilterModalOpen}) => {
+interface FilterComponentProps {
+    isFilterModalOpen: boolean;
+}
 
-    const [filterType, setFilterType] = useState('role');
-    const [filterValue, setFilterValue] = useState('');
+// 2. DEFINIÇÃO DE UM TIPO PARA AS OPÇÕES DE FILTRO
+// Usar um tipo literal melhora a segurança, restringindo os valores possíveis para 'filterType'.
+type FilterType = 'role' | 'name' | 'email';
+
+// 3. O COMPONENTE É UMA FUNÇÃO PADRÃO, COM AS PROPS TIPADAS DIRETAMENTE NOS PARÂMETROS
+// Esta é uma alternativa moderna e mais concisa ao uso de React.FC.
+const FilterComponent = ({ isFilterModalOpen }: FilterComponentProps) => {
+
+    const [filterType, setFilterType] = useState<FilterType>('role');
+    const [filterValue, setFilterValue] = useState<string>('');
 
 
-    const ontypeChange = (newType: string) => {
+    const ontypeChange = (newType: FilterType) => {
         setFilterType(newType);
         setFilterValue('');
     };
@@ -32,7 +42,7 @@ const FilterComponent = ({isFilterModalOpen}) => {
                         type="text"
                         placeholder="Digite o nome do usuario"
                         value={filterValue}
-                        onChange={(e) => setFilterValue(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterValue(e.target.value)}
                         className="w-full bg-slate-800 rounded-md px-3 py-2"
                     />
                 )
@@ -42,7 +52,7 @@ const FilterComponent = ({isFilterModalOpen}) => {
                         type="email"
                         placeholder="Digite o email do usuario"
                         value={filterValue}
-                        onChange={(e) => setFilterValue(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setFilterValue(e.target.value)}
                         className="w-full bg-slate-800 rounded-md px-3 py-2"
                     />
                 )
@@ -57,21 +67,21 @@ const FilterComponent = ({isFilterModalOpen}) => {
 
             <div className="flex gap-2 mx-5">
                 <button 
-                    className={`px-8 py-2 cursor-pointer text-sm rounded-md transition-colors ${filterType === 'role' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
+                    className={`px-4 py-2 text-sm rounded-md transition-colors ${filterType === 'role' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
                     onClick={() => ontypeChange('role')}
                 >
                     Cargo
                 </button>
 
                 <button 
-                    className={`px-8 py-2 cursor-pointer text-sm rounded-md transition-colors ${filterType === 'name' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
+                    className={`px-4 py-2 text-sm rounded-md transition-colors ${filterType === 'name' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
                     onClick={() => ontypeChange('name')}
                 >
                     Nome
                 </button>
 
                 <button 
-                    className={`px-8 py-2 cursor-pointer text-sm rounded-md transition-colors ${filterType === 'email' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
+                    className={`px-4 py-2 text-sm rounded-md transition-colors ${filterType === 'email' ? 'bg-lime-600 text-white' : 'bg-blue-500 hover:bg-blue-600'}`}
                     onClick={() => ontypeChange('email')}
                 >
                     Email
