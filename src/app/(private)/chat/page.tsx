@@ -1,6 +1,6 @@
 'use client';
 
-import { Menu, MoveLeft } from 'lucide-react';
+import { Menu, MoveLeft, Plus } from 'lucide-react';
 import React, { useState } from 'react';
 
 export default function ChatPage() {
@@ -64,8 +64,17 @@ export default function ChatPage() {
                 <Menu size={25}/>
             </button>
         </div>
-        <div className='bg-slate-600 w-full flex-1 overflow-y-auto'>
+        <div className='bg-slate-600 w-full flex flex-1 flex-col overflow-y-auto'>
+            <div className='flex-1 w-full'>
 
+            </div>
+            <div className='w-full h-20 bg-transparent flex items-center justify-center'>
+                <div className='w-49/50 h-15 flex items-center bg-slate-800 rounded-3xl'>
+                    <button className='ml-4 p-2 rounded-3xl hover:bg-slate-700'>
+                        <Plus size={20}/>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     </div>
